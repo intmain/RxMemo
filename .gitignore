@@ -1,0 +1,13 @@
+build/
+.DS_Store
+developer.h
+*.pyc
+DerivedData
+Pods/
+podfile.lock
+Memo.xcworkspace/xcuserdata/leonard.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+xcuserdata/
+Memo.xcodeproj/xcuserdata/
+Memo.xcodeproj/project.xcworkspace/
+Memo.xcworkspace/xcuserdata/
+*.xcuserstate
