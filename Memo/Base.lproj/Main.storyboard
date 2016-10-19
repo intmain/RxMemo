@@ -82,11 +82,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="a59-eV-8p7">
-                        <barButtonItem key="rightBarButtonItem" title="섞기" id="tJ2-rH-diF"/>
+                        <barButtonItem key="rightBarButtonItem" title="추가" id="tJ2-rH-diF"/>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="2Tv-ui-2d5" id="c02-bn-1m8"/>
-                        <outlet property="mixBarButtonItem" destination="tJ2-rH-diF" id="g3P-vA-J7x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KZb-sc-HLp" userLabel="First Responder" sceneMemberID="firstResponder"/>

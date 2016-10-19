@@ -13,7 +13,6 @@ import RxDataSources
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var mixBarButtonItem: UIBarButtonItem!
     var datasource: Variable<[SectionModel<Int,String>]> = Variable([SectionModel(model: 1, items:["memo1", "memo2", "memo3","memo4", "memo5", "memo6","memo7", "memo8", "memo9"])])
     let disposeBag = DisposeBag()
     @IBOutlet var collectionView: UICollectionView!
@@ -34,10 +33,31 @@ class ViewController: UIViewController {
 // MARK: - Rx
 extension ViewController {
     func rxAction() {
-        self.mixBarButtonItem.rx.tap.asObservable().subscribe(onNext: { [weak self] _ in
-                self?.datasource.value = [SectionModel(model: 1, items:["memo9", "memo8", "memo7","memo6", "memo5", "memo4","memo3", "memo2", "memo1"])]
+        self.navigationItem.rightBarButtonItem?.rx.tap.asObservable().subscribe(onNext: { [weak self] _ in
+            guard let weakSelf = self else { return }
+            guard var oldItems = weakSelf.datasource.value.first?.items else { return }
+            let newMemoText = "memo\(oldItems.count + 1)"
+            oldItems.append(newMemoText)
+            let newSectionModel = SectionModel(model: 1, items: oldItems)
+            weakSelf.datasource.value = [newSectionModel]
             }
         ).addDisposableTo(disposeBag)
+        
+        
+        
+        
+        collectionView.rx.observe(CGSize.self, "contentSize")
+            .filter{ size -> Bool in
+                size?.height != 0
+            }
+            .distinctUntilChanged{ (old,new) -> Bool in
+                return (old?.width == new?.width && old?.height == new?.height)
+            }
+            .skip(1)
+            .subscribe(onNext: { [weak self] size in
+                let newOffSet =  CGPoint(x: 0, y: (size?.height ?? 0) - (self?.collectionView.frame.height ?? 0))
+                self?.collectionView.setContentOffset(newOffSet, animated: true)
+        }).addDisposableTo(disposeBag)
     }
     
     func bindDataSource() {
