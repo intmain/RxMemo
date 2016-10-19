@@ -13,7 +13,10 @@ import RxDataSources
 
 class ViewController: UIViewController {
     
-    var datasource: Variable<[SectionModel<Int,String>]> = Variable([SectionModel(model: 1, items:["memo1", "memo2", "memo3","memo4", "memo5", "memo6","memo7", "memo8", "memo9"])])
+    var datasource: Variable<[SectionModel<Int,String>]> = {
+        var items = ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also ", "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also ", "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also ","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also ", "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also ", "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also  the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also ","Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also ", "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also ", "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also "]
+        return Variable([SectionModel(model: 1, items: items)])
+    }()
     let disposeBag = DisposeBag()
     @IBOutlet var collectionView: UICollectionView!
     override func viewDidLoad() {
@@ -34,12 +37,7 @@ class ViewController: UIViewController {
 extension ViewController {
     func rxAction() {
         self.navigationItem.rightBarButtonItem?.rx.tap.asObservable().subscribe(onNext: { [weak self] _ in
-            guard let weakSelf = self else { return }
-            guard var oldItems = weakSelf.datasource.value.first?.items else { return }
-            let newMemoText = "memo\(oldItems.count + 1)"
-            oldItems.append(newMemoText)
-            let newSectionModel = SectionModel(model: 1, items: oldItems)
-            weakSelf.datasource.value = [newSectionModel]
+            self?.addCell(text: "nce the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not o")
             }
         ).addDisposableTo(disposeBag)
         
@@ -59,6 +57,10 @@ extension ViewController {
                 self?.collectionView.setContentOffset(newOffSet, animated: true)
         }).addDisposableTo(disposeBag)
     }
+}
+
+// MARK: - CollectionView
+extension ViewController {
     
     func bindDataSource() {
         
@@ -71,11 +73,18 @@ extension ViewController {
         
         datasource.configureCell = { datasource, collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MemoCell", for: indexPath) as? MemoCell else { return MemoCell() }
-            cell.memoLabel.text = "\(indexPath.row+1): \(item)"
+            cell.memoLabel.text = item
             return cell
         }
         
         
         return datasource
+    }
+    
+    func addCell(text: String) {
+        guard var newItems = self.datasource.value.first?.items else { return }
+        newItems.append(text)
+        let newSectionModel = SectionModel(model: 1, items: newItems)
+        self.datasource.value = [newSectionModel]
     }
 }
