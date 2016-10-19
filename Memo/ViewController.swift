@@ -13,12 +13,15 @@ import RxDataSources
 
 class ViewController: UIViewController {
     
-    let datasource: [SectionModel<Int,String>] = [SectionModel(model: 1, items:["memo1", "memo2", "memo3","memo4", "memo5", "memo6","memo7", "memo8", "memo9"])]
+    @IBOutlet weak var mixBarButtonItem: UIBarButtonItem!
+    var datasource: Variable<[SectionModel<Int,String>]> = Variable([SectionModel(model: 1, items:["memo1", "memo2", "memo3","memo4", "memo5", "memo6","memo7", "memo8", "memo9"])])
     let disposeBag = DisposeBag()
     @IBOutlet var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
         bindDataSource()
+        rxAction()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,8 +33,16 @@ class ViewController: UIViewController {
 
 // MARK: - Rx
 extension ViewController {
+    func rxAction() {
+        self.mixBarButtonItem.rx.tap.asObservable().subscribe(onNext: { [weak self] _ in
+                self?.datasource.value = [SectionModel(model: 1, items:["memo9", "memo8", "memo7","memo6", "memo5", "memo4","memo3", "memo2", "memo1"])]
+            }
+        ).addDisposableTo(disposeBag)
+    }
+    
     func bindDataSource() {
-        Observable.of(datasource).bindTo( collectionView.rx.items(dataSource: createDatasource())).addDisposableTo(disposeBag)
+        
+        datasource.asObservable().bindTo( collectionView.rx.items(dataSource: createDatasource())).addDisposableTo(disposeBag)
     }
     
     func createDatasource() -> RxCollectionViewSectionedReloadDataSource<SectionModel<Int,String>> {
@@ -40,9 +51,11 @@ extension ViewController {
         
         datasource.configureCell = { datasource, collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MemoCell", for: indexPath) as? MemoCell else { return MemoCell() }
-            cell.memoLabel.text = "\(indexPath.row+1): item"
+            cell.memoLabel.text = "\(indexPath.row+1): \(item)"
             return cell
         }
+        
+        
         return datasource
     }
 }

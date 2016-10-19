@@ -11,7 +11,7 @@
         <scene sceneID="VDa-I2-ReD">
             <objects>
                 <navigationController id="vzg-X7-ERV" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="kgx-Rq-hZB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="kgx-Rq-hZB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -81,9 +81,12 @@
                             <constraint firstItem="2Tv-ui-2d5" firstAttribute="leading" secondItem="9A9-2F-aWG" secondAttribute="leading" id="u1r-sq-YQX"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="a59-eV-8p7"/>
+                    <navigationItem key="navigationItem" id="a59-eV-8p7">
+                        <barButtonItem key="rightBarButtonItem" title="섞기" id="tJ2-rH-diF"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="2Tv-ui-2d5" id="c02-bn-1m8"/>
+                        <outlet property="mixBarButtonItem" destination="tJ2-rH-diF" id="g3P-vA-J7x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KZb-sc-HLp" userLabel="First Responder" sceneMemberID="firstResponder"/>
