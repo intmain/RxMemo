@@ -14,6 +14,7 @@
 		D732E3FD1DB4FDAB00623267 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D732E3FC1DB4FDAB00623267 /* Assets.xcassets */; };
 		D732E4001DB4FDAB00623267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D732E3FE1DB4FDAB00623267 /* LaunchScreen.storyboard */; };
 		D732E4081DB5113000623267 /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D732E4071DB5113000623267 /* MemoCell.swift */; };
+		D7EC635C1DB90C4900FF5571 /* WriteMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EC635B1DB90C4900FF5571 /* WriteMemoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		D732E3FF1DB4FDAB00623267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D732E4011DB4FDAB00623267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D732E4071DB5113000623267 /* MemoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
+		D7EC635B1DB90C4900FF5571 /* WriteMemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteMemoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				D732E3FE1DB4FDAB00623267 /* LaunchScreen.storyboard */,
 				D732E4011DB4FDAB00623267 /* Info.plist */,
 				D732E4071DB5113000623267 /* MemoCell.swift */,
+				D7EC635B1DB90C4900FF5571 /* WriteMemoViewController.swift */,
 			);
 			path = Memo;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7EC635C1DB90C4900FF5571 /* WriteMemoViewController.swift in Sources */,
 				D732E3F81DB4FDAB00623267 /* ViewController.swift in Sources */,
 				D732E3F61DB4FDAB00623267 /* AppDelegate.swift in Sources */,
 				D732E4081DB5113000623267 /* MemoCell.swift in Sources */,

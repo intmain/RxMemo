@@ -37,7 +37,9 @@ class ViewController: UIViewController {
 extension ViewController {
     func rxAction() {
         self.navigationItem.rightBarButtonItem?.rx.tap.asObservable().subscribe(onNext: { [weak self] _ in
-            self?.addCell(text: "nce the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not o")
+            let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WriteMemoViewController") as! WriteMemoViewController
+            viewController.delegate = self
+            self?.present(viewController.wrapNavigation(), animated: true, completion: nil)
             }
         ).addDisposableTo(disposeBag)
         
@@ -86,5 +88,15 @@ extension ViewController {
         newItems.append(text)
         let newSectionModel = SectionModel(model: 1, items: newItems)
         self.datasource.value = [newSectionModel]
+    }
+}
+
+extension ViewController: WriteMemoViewControllerDelegate {
+    func memoGetController(picker: WriteMemoViewController, didFinishGetNewMemo memo: String) {
+        addCell(text: memo)
+    }
+    
+    func memoGetControllerDidCancel(picker: WriteMemoViewController) {
+        
     }
 }
