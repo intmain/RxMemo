@@ -48,6 +48,11 @@ class WriteMemoViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         rxAction()
+        API.Baconipsum().subscribe(onNext: {[weak self] json in
+            print("json: \(json)")
+            let data: [String] = json as! [String]
+            self?.textView.text = data[0]
+        }).addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {

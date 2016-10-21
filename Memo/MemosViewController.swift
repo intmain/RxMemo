@@ -12,7 +12,7 @@ import RxCocoa
 import RxDataSources
 
 
-class ViewController: UIViewController {
+class MemosViewController: UIViewController {
 
     let disposeBag = DisposeBag()
     @IBOutlet var collectionView: UICollectionView!
@@ -29,7 +29,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: - Rx
-extension ViewController {
+extension MemosViewController {
     func rxAction() {
         
         self.navigationItem.rightBarButtonItem?.rx.tap.flatMapLatest { [weak self] _ in
@@ -57,7 +57,7 @@ extension ViewController {
 }
 
 // MARK: - CollectionView
-extension ViewController {
+extension MemosViewController {
     
     func bindDataSource() {
         MemoManager.instance.datasource.asObservable().bindTo( collectionView.rx.items(dataSource: createDatasource())).addDisposableTo(disposeBag)
