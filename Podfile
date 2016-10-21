@@ -5,8 +5,8 @@ target 'Memo' do
   pod 'RxSwift',    '3.0.0-rc.1'
   pod 'RxCocoa',    '3.0.0-rc.1'
   pod 'RxDataSources', '~> 1.0.0-rc.1'
-  pod 'Realm', git: 'https://github.com/realm/realm-cocoa.git', branch: 'master', :submodules => true
-  pod 'RealmSwift', :git => 'https://github.com/realm/realm-cocoa.git', :branch => 'master', :submodules => true
+#  pod 'Realm', git: 'https://github.com/realm/realm-cocoa.git', branch: 'master', :submodules => true
+#  pod 'RealmSwift', :git => 'https://github.com/realm/realm-cocoa.git', :branch => 'master', :submodules => true
 end
 
 post_install do |installer|
