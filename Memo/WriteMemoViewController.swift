@@ -71,6 +71,25 @@ extension WriteMemoViewController {
         self.navigationItem.rightBarButtonItem?.rx.tap.subscribe(onNext: { [unowned self] _ in
             self.delegate?.memoGetController?(picker: self, didFinishGetNewMemo: self.textView.text)
         }).addDisposableTo(disposeBag)
+        
+        NotificationCenter.default.rx.notification(.UIKeyboardDidShow).flatMap{ notification -> Observable<CGRect> in
+            guard let keyboardFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return Observable.empty() }
+            return Observable.just(keyboardFrame)
+        }.debounce(0.01, scheduler: MainScheduler.instance).bindNext { [weak self] frame in
+            print("show",frame)
+            self?.textView.contentInset = UIEdgeInsetsMake(0, 0, frame.size.height, 0)
+        }.addDisposableTo(disposeBag)
+
+        
+        NotificationCenter.default.rx.notification(.UIKeyboardDidHide).flatMap{ notification -> Observable<CGRect> in
+            print(notification)
+            guard let keyboardFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return Observable.empty() }
+            return Observable.just(keyboardFrame)
+        }.bindNext { [weak self]  frame in
+            print("hide", frame)
+            self?.textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        }.addDisposableTo(disposeBag)
+        
     }
 }
 
